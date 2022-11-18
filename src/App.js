@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {AiOutlinePlus} from 'react-icons/ai'
+import React, { useState, useEffect, useRef } from "react";
+import { AiOutlinePlus } from 'react-icons/ai'
 import Todo from "./Todo";
 
 const style = {
@@ -13,20 +13,66 @@ const style = {
 
 }
 function App() {
-const [data, setData] = useState(['Learn Italian', 'Learn to drive a tractor'])
+  const arr = [
+    {
+      id: 1,
+      name: "Walk dog",
+    },
+    {
+      id: 2,
+      name: "Walk cat",
+    }
+  ]
+
+  const [data, setData] = useState(arr);
+  const [input, setInput] = useState('');
+
+  // const inputRef = useRef(null);
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
+
+  const deleteTodo = (index) => {
+    const newData = data.filter(dat=>dat.name !== index);
+    setData(newData);
+  };
+
+  const handleChange = e => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const format = [
+      {
+        id: Math.floor(Math.random() * 10000),
+        name: input
+      }
+  ];
+    const newList = data.concat(format)
+    setData(newList)
+  };
+
 
   return (
     <div className={style.background}>
       <div className={style.c}>
-        <h3 classname={style.headers}>mani Todo App</h3>
-        <p classname={style.counters}>You have 2 todos</p>
-        <form classname={style.form}>
-          <input classname={style.forminputs} type="text" placeholder="Add Todo"/>
-          <button classname={style.buttons}><AiOutlinePlus size={30}/></button>
+
+        <h3 className={style.headers}>mani Todo App</h3>
+        <p className={style.counters}>You have {data.length} todos</p>
+
+        <form onSubmit={handleSubmit} className={style.form}>
+          <input value={input} onChange={handleChange} className={style.forminputs} type="text" placeholder="Add Todo" />
+          <button onSubmit={handleSubmit} className={style.buttons}><AiOutlinePlus size={30} /></button>
         </form>
+
         <ul>
-          {data.map((todo, index)=>(
-          <Todo key={index} todo={todo}/>
+          {data.map((todo, index) => (
+            <Todo key={index} 
+              todo={todo.name} 
+              deleteTodo={deleteTodo} />
           ))}
         </ul>
       </div>

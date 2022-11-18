@@ -9,14 +9,14 @@ const style ={
     button: `cursor-pointer flex items-center`
 }
 
-const Todo = ({todo}) => {
+const Todo = ({todo, deleteTodo}) => {
     return(
         <li className={style.list}>
             <div className={style.entry}>
                 <input type="checkbox"/>
                 <p className={style.text}>{todo}</p>
             </div>
-            <button>{<FaRegTrashAlt />}</button>
+            <button onClick={()=>deleteTodo(todo)}>{<FaRegTrashAlt />}</button>
         </li>
     )
 }
