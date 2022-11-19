@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { AiOutlinePlus } from 'react-icons/ai'
 import Todo from "./Todo";
 
@@ -20,21 +20,16 @@ function App() {
     },
     {
       id: 2,
-      name: "Walk cat",
+      name: "Drink water",
     }
   ]
 
   const [data, setData] = useState(arr);
   const [input, setInput] = useState('');
 
-  // const inputRef = useRef(null);
-
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // });
 
   const deleteTodo = (index) => {
-    const newData = data.filter(dat=>dat.name !== index);
+    const newData = data.filter(dat => dat.name !== index);
     setData(newData);
   };
 
@@ -47,10 +42,10 @@ function App() {
 
     const format = [
       {
-        id: Math.floor(Math.random() * 10000),
+        id: Math.floor(Math.random() * 10000), //Random ID
         name: input
       }
-  ];
+    ];
     const newList = data.concat(format)
     setData(newList)
   };
@@ -70,8 +65,8 @@ function App() {
 
         <ul>
           {data.map((todo, index) => (
-            <Todo key={index} 
-              todo={todo.name} 
+            <Todo key={index}
+              todo={todo.name}
               deleteTodo={deleteTodo} />
           ))}
         </ul>
